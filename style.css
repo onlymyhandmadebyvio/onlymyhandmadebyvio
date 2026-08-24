@@ -567,6 +567,51 @@ body.shop-page {
     overflow-wrap: anywhere;
 }
 
+.product-variants {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 2px 0 6px;
+}
+
+.product-variants-title {
+    margin: 0;
+    color: #6a5a82;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.product-variant-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.product-variant-option {
+    border: 1px solid rgba(106, 76, 147, 0.22);
+    border-radius: 999px;
+    background: #fff;
+    color: #5e3f84;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 7px 11px;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.product-variant-option:hover,
+.product-variant-option:focus-visible {
+    border-color: #8f69c7;
+    transform: translateY(-1px);
+}
+
+.product-variant-option.is-selected {
+    background: #6a4c93;
+    border-color: #6a4c93;
+    color: #fff;
+}
+
 .product-card .btn-paypal {
     margin-top: auto;
     text-align: center;
