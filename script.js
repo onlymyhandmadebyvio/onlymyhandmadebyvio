@@ -205,3 +205,39 @@ productSliders.forEach(slider => {
 
     updateProductSlider(activeProductSlide);
 });
+
+// Varianti colore/fantasia dei prodotti
+const productVariantGroups = Array.from(document.querySelectorAll('.product-variants'));
+
+productVariantGroups.forEach(group => {
+    const card = group.closest('.product-card');
+    const image = card?.querySelector('[data-variant-image]');
+    const title = card?.querySelector('[data-variant-title]');
+    const options = Array.from(group.querySelectorAll('.product-variant-option'));
+
+    if (!image || !options.length) return;
+
+    options.forEach(option => {
+        option.addEventListener('click', () => {
+            const variantSrc = option.getAttribute('data-variant-src');
+            const variantAlt = option.getAttribute('data-variant-alt');
+            const variantTitle = option.getAttribute('data-variant-title');
+
+            if (variantSrc) {
+                image.src = variantSrc;
+            }
+
+            if (variantAlt) {
+                image.alt = variantAlt;
+            }
+
+            if (title && variantTitle) {
+                title.textContent = variantTitle;
+            }
+
+            options.forEach(item => {
+                item.classList.toggle('is-selected', item === option);
+            });
+        });
+    });
+});
