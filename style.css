@@ -479,92 +479,6 @@ body.shop-page {
     overflow: hidden;
 }
 
-/* PRODUCT MEDIA CONTAINER (for photo + video toggle) */
-.product-media-container {
-    position: relative;
-    width: 100%;
-    height: 330px;
-    margin-bottom: 8px;
-    border-radius: 14px;
-    overflow: hidden;
-    background: #f5f5f5;
-}
-
-.product-media-container img,
-.product-media-container video {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.product-media-container img {
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    z-index: 2;
-}
-
-.product-media-container img.hidden {
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.product-media-container video {
-    display: none;
-    opacity: 0;
-    z-index: 1;
-}
-
-.product-media-container video.visible {
-    display: block;
-    opacity: 1;
-    z-index: 3;
-}
-
-.product-media-toggle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 4;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(106, 76, 147, 0.85);
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-    box-shadow: 0 8px 20px rgba(106, 76, 147, 0.35);
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-}
-
-.product-media-toggle:hover {
-    background: rgba(106, 76, 147, 0.95);
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 12px 28px rgba(106, 76, 147, 0.45);
-}
-
-.product-media-toggle:active {
-    transform: translate(-50%, -50%) scale(0.95);
-}
-
-.play-icon {
-    display: inline-block;
-    font-size: 1.8rem;
-    line-height: 1;
-}
-
 .product-slider {
     position: relative;
     width: 100%;
@@ -574,13 +488,17 @@ body.shop-page {
     overflow: hidden;
 }
 
-.product-slider .product-img {
+.product-slider .product-slide {
     margin-bottom: 0;
     display: none;
+    width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 0;
 }
 
-.product-slider .product-img.is-active {
+.product-slider .product-slide.is-active {
     display: block;
 }
 
@@ -1086,40 +1004,78 @@ body.shop-page {
         text-align: center;
     }
 
-    .shop {
-        padding: 0 16px;
+    .carousel-window {
+        padding: 14px;
+    }
+
+    .carousel-slide {
+        gap: 16px;
+    }
+
+    .carousel-image-wrap {
+        aspect-ratio: 1 / 1;
+    }
+
+    .carousel-copy h2 {
+        font-size: 1.45rem;
+        line-height: 1.22;
+    }
+
+    .carousel-copy p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .carousel-arrow {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-arrow.prev {
+        left: 8px;
+    }
+
+    .carousel-arrow.next {
+        right: 8px;
+    }
+
+    .shop-header {
+        margin-bottom: 24px;
+    }
+
+    .shop-title-row {
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .shop-title-image {
+        width: 110px;
+        height: 110px;
+    }
+
+    .shop h2 {
+        font-size: 1.9rem;
+    }
+
+    .shop-subtitle {
+        font-size: 0.95rem;
     }
 
     .shop-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
+        grid-template-columns: 1fr;
     }
 
     .product-card {
-        padding: 20px 16px;
-        border-radius: 14px;
-        gap: 4px;
+        width: 100%;
     }
 
     .product-img,
-    .product-media-container {
-        height: 220px;
-        margin-bottom: 6px;
+    .product-slider {
+        height: 240px;
     }
 
-    .product-media-toggle {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
-    }
-
-    .contact {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .contact-form {
-        border-radius: 16px;
-        padding: 16px;
+    .product-slider-arrow {
+        width: 36px;
+        height: 36px;
     }
 }
