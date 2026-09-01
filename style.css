@@ -442,6 +442,33 @@ body.shop-page {
     min-width: 0;
 }
 
+.product-category-heading {
+    grid-column: 1 / -1;
+}
+
+.product-category-heading h2 {
+    margin: 20px 0 4px;
+    color: #3b264f;
+    font-family: "Playfair Display", serif;
+    font-size: 1.8rem;
+}
+
+.product-category-heading--necklaces {
+    order: 1;
+}
+
+.product-card--necklaces {
+    order: 2;
+}
+
+.product-category-heading--earrings {
+    order: 3;
+}
+
+.product-card--earrings {
+    order: 4;
+}
+
 .product-card {
     background: #fff;
     border-radius: 18px;
