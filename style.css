@@ -443,7 +443,8 @@ body.shop-page {
 }
 
 .product-category-heading {
-    grid-column: 1 / -1;
+    grid-column: 1 / -1 !important;
+    width: 100%;
 }
 
 .product-category-heading h2 {
