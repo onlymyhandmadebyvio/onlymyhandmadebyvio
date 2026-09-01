@@ -175,12 +175,15 @@ productSliders.forEach(slider => {
     if (!slides.length) return;
     if (activeProductSlide < 0) activeProductSlide = 0;
 
-    function updateProductSlider(index) {
+    function updateProductSlider(index, shouldPlayVideo = false) {
         slides.forEach((slide, slideIndex) => {
             slide.classList.toggle('is-active', slideIndex === index);
+            if (slideIndex !== index && slide instanceof HTMLVideoElement) {
+                slide.pause();
+            }
         });
 
-    const activeSlide = slides[index];
+        const activeSlide = slides[index];
         activeSlide?.querySelectorAll('img[data-src]').forEach(img => {
             const realSrc = img.getAttribute('data-src');
             if (realSrc && img.src !== realSrc) {
@@ -192,112 +195,58 @@ productSliders.forEach(slider => {
             counter.textContent = `${index + 1}/${slides.length}`;
         }
 
+        if (shouldPlayVideo && activeSlide instanceof HTMLVideoElement) {
+            activeSlide.play().catch(() => {
+                // Il browser può bloccare la riproduzione automatica in alcuni casi.
+            });
+        }
+
         activeProductSlide = index;
     }
 
     prevButton?.addEventListener('click', () => {
-        updateProductSlider((activeProductSlide - 1 + slides.length) % slides.length);
+        updateProductSlider((activeProductSlide - 1 + slides.length) % slides.length, true);
     });
 
     nextButton?.addEventListener('click', () => {
-        updateProductSlider((activeProductSlide + 1) % slides.length);
+        updateProductSlider((activeProductSlide + 1) % slides.length, true);
     });
 
     updateProductSlider(activeProductSlide);
 });
 
-// =====================================================
-// VARIANTI DEI PRODOTTI
-// Cambia: foto, nome, variante selezionata e link Ko-fi
-// =====================================================
-
-const productVariantGroups = Array.from(
-    document.querySelectorAll('.product-variants')
-);
+// Varianti colore/fantasia dei prodotti
+const productVariantGroups = Array.from(document.querySelectorAll('.product-variants'));
 
 productVariantGroups.forEach(group => {
-
     const card = group.closest('.product-card');
-
-    if (!card) return;
-
-    const image = card.querySelector('[data-variant-image]');
-    const title = card.querySelector('[data-variant-title]');
-    const linkButton = card.querySelector('[data-variant-link-button], .btn-paypal');
-    const options = Array.from(
-        group.querySelectorAll('.product-variant-option')
-    );
+    const image = card?.querySelector('[data-variant-image]');
+    const title = card?.querySelector('[data-variant-title]');
+    const options = Array.from(group.querySelectorAll('.product-variant-option'));
 
     if (!image || !options.length) return;
 
-
-    // -------------------------------------------------
-    // FUNZIONE PER APPLICARE UNA VARIANTE
-    // -------------------------------------------------
-
-    function applyVariant(option) {
-
-        if (!option) return;
-
-        const variantSrc = option.getAttribute('data-variant-src');
-        const variantAlt = option.getAttribute('data-variant-alt');
-        const variantTitle = option.getAttribute('data-variant-title');
-        const variantLink = option.getAttribute('data-variant-link');
-
-
-        // Cambia immagine
-        if (variantSrc) {
-            image.src = variantSrc;
-        }
-
-
-        // Cambia testo alternativo dell'immagine
-        if (variantAlt) {
-            image.alt = variantAlt;
-        }
-
-
-        // Cambia nome del prodotto
-        if (title && variantTitle) {
-            title.textContent = variantTitle;
-        }
-
-
-        // Cambia link Ko-fi
-        if (linkButton && variantLink) {
-            linkButton.href = variantLink;
-        }
-
-
-        // Aggiorna il pulsante selezionato
-        options.forEach(item => {
-            item.classList.toggle('is-selected', item === option);
-        });
-    }
-
-
-    // -------------------------------------------------
-    // CLICK SULLE VARIANTI
-    // -------------------------------------------------
-
     options.forEach(option => {
-
         option.addEventListener('click', () => {
-            applyVariant(option);
+            const variantSrc = option.getAttribute('data-variant-src');
+            const variantAlt = option.getAttribute('data-variant-alt');
+            const variantTitle = option.getAttribute('data-variant-title');
+
+            if (variantSrc) {
+                image.src = variantSrc;
+            }
+
+            if (variantAlt) {
+                image.alt = variantAlt;
+            }
+
+            if (title && variantTitle) {
+                title.textContent = variantTitle;
+            }
+
+            options.forEach(item => {
+                item.classList.toggle('is-selected', item === option);
+            });
         });
-
     });
-
-
-    // -------------------------------------------------
-    // IMPOSTAZIONE DELLA VARIANTE INIZIALE
-    // -------------------------------------------------
-
-    const initiallySelected =
-        options.find(option =>
-            option.classList.contains('is-selected')
-        ) || options[0];
-
-    applyVariant(initiallySelected);
-
 });
