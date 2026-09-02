@@ -523,7 +523,8 @@ body.shop-page {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    border-radius: 0;
+    /* Il raggio va applicato anche al media, non solo al contenitore. */
+    border-radius: 14px;
 }
 
 .product-slider .product-slide.is-active {
@@ -532,6 +533,12 @@ body.shop-page {
 
 .product-img.product-img-contain {
     object-fit: contain;
+}
+
+/* Mantiene visibili gli angoli arrotondati anche sulle immagini contenute. */
+.product-img--rounded {
+    border-radius: 14px;
+    overflow: hidden;
 }
 
 .product-slider-arrow {
