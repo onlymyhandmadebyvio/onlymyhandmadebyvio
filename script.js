@@ -222,6 +222,7 @@ productVariantGroups.forEach(group => {
     const card = group.closest('.product-card');
     const image = card?.querySelector('[data-variant-image]');
     const title = card?.querySelector('[data-variant-title]');
+    const detailsLink = card?.querySelector('.btn-paypal');
     const options = Array.from(group.querySelectorAll('.product-variant-option'));
 
     if (!image || !options.length) return;
@@ -231,6 +232,7 @@ productVariantGroups.forEach(group => {
             const variantSrc = option.getAttribute('data-variant-src');
             const variantAlt = option.getAttribute('data-variant-alt');
             const variantTitle = option.getAttribute('data-variant-title');
+            const variantLink = option.getAttribute('data-variant-link');
 
             if (variantSrc) {
                 image.src = variantSrc;
@@ -242,6 +244,10 @@ productVariantGroups.forEach(group => {
 
             if (title && variantTitle) {
                 title.textContent = variantTitle;
+            }
+
+            if (detailsLink && variantLink) {
+                detailsLink.href = variantLink;
             }
 
             options.forEach(item => {
